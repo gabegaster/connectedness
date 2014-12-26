@@ -20,6 +20,12 @@ def phi(n):
     return sum(gcd(i,n)==1
                for i in xrange(1,n))
 
+# This memoize decorator is from the PythonDecoratorLibrary:
+# https://wiki.python.org/moin/PythonDecoratorLibrary 
+# 
+# It caches the results of coprime. This could lead us into memory
+# issues, but probably speeds up the code. (Might no longer be
+# relevant with the switch from old_coprime to coprime....)
 def memoize(obj):
     cache = obj.cache = {}
     @functools.wraps(obj)
@@ -99,6 +105,13 @@ def run_tests():
         a,b = random.randint(1,100),random.randint(1,100)
         if a%b==0: continue
         assert (invert(a,b)*a)%b == gcd(a,b)
+
+    def r(): return random.randint(1,10**4),random.randint(1,10**4)
+    random.seed(0)
+    s = sum(    coprime(*r()) for _ in xrange(10**4))
+    random.seed(0)
+    t = sum(old_coprime(*r()) for _ in xrange(10**4))
+    assert s==t
 
 if __name__=="__main__":
     run_tests()
