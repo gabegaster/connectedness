@@ -31,11 +31,15 @@ def memoize(obj):
     return memoizer
 
 @memoize
-def coprime(a,b):
+def old_coprime(a,b):
     for i in xrange(2,min(a,b)+1):
         if not a%i and not b%i:
             return False
     return True
+
+@memoize
+def coprime(a,b):
+    return gcd(a,b)==1
 
 def divide(a,b):
     return a/b, a%b
