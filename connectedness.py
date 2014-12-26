@@ -10,7 +10,7 @@ are not coprime.
 from itertools import izip
 
 # gabe's
-from utils import coprime
+from number_theory import coprime
 
 def reverse_enumerate(sequence):
     """Enumerate over a sequence in reverse order while retaining proper indexes"""
